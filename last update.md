@@ -10,6 +10,8 @@ int tp=4;
 int tm=2;
 int tpwm=3;
 
+String readString;
+
 void lmfor() {      //leftmotorforward
   digitalWrite(lmp,HIGH);
   digitalWrite(lmm, LOW);
@@ -107,7 +109,7 @@ void setup() {
   pinMode(rmm, OUTPUT);
   pinMode(rmpwm,OUTPUT);
   pinMode(tp,OUTPUT);
-  pinMode(ltm, OUTPUT);
+  pinMode(tm, OUTPUT);
   pinMode(tpwm,OUTPUT);
   Serial.begin(9600);
   /*pinMode(rmp,OUTPUT);
@@ -118,6 +120,42 @@ void setup() {
 }
 
 void loop() {
+   while(Serial.available()){
+    delay(50);
+    char c = Serial.read();
+    readString+=c;
+  }
+
+  if(readString.length() > 0) {
+    Serial.println(readString);
+
+    if(readString == "FORWARD"){
+      forward();
+      Serial.println("forward");
+    }
+    
+    if(readString == "BACK"){
+      reverse();
+      Serial.println("reverse");
+    }
+
+    if(readString == "LEFT"){
+      leftgo();
+      Serial.println("leftgo");
+    }
+
+    if(readString == "RIGHT"){
+      rightgo();
+      Serial.println("leftgo");
+    }
+
+    if(readString == "STOP"){
+      vehstop();
+      Serial.println("vehstop");
+    }
+
+    readString = "";
+  }
   // put your main code here, to run repeatedly:
 
 }
