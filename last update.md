@@ -122,13 +122,13 @@ void rmstop() {//rightmotorstop
   analogWrite(rmpwm,0);
 }
 
-void lmstop{//leftmotorstop
+void lmstop(){//leftmotorstop
   digitalWrite(lmp,LOW);
   digitalWrite(lmm, LOW);
   analogWrite(lmpwm,0);
 }
 
-void fmstop{//frontmotorstop
+void fmstop(){//frontmotorstop
   digitalWrite(fmp,LOW);
   digitalWrite(fmm, LOW);
   analogWrite(fmpwm,0);
@@ -322,7 +322,7 @@ void leftgo() {//leftgo
   bmfor();
 }
 
-void rightgo() {//right go
+void rivghtgo() {//right go
   lmstop();
   rmstop();
   fmrev();
@@ -357,7 +357,6 @@ void rightfrontcorner() {//rightfrontcorner
   lmstop();
 }
 
-String readString;
 
 void setup() {
   pinMode(fmp,OUTPUT);
@@ -376,6 +375,12 @@ void setup() {
 }
 
 void loop() {
+  /*
+   lmforf();
+   rmforf();
+   fmfor();
+   bmfor();
+   */
 
   while(Serial.available()){
     delay(50);
@@ -500,20 +505,21 @@ void loop() {
       Serial.println("leftgo");
     }
     if(readString=="frontrightgo") {
-      frontrightcorner();
+      rightfrontcorner();
       Serial.println("frontrightcorner");
     }
     if(readString=="frontleftgo") {
-      frontleftcorner();
+      leftfrontcorner();
       Serial.println("frontleftcorner");
     }
     if(readString=="backrightgo") {
-      backrightcorner();
+      rightbackcorner();
       Serial.println("backrightcorner");
     }
     if(readString=="backleftgo") {
-      backleftgo();
-      Serial.println("backleftgo");
+      leftbackcorner();
+      Serial.println("backleftcorner");
     }
     readString = "";
-  }
+ }
+}
