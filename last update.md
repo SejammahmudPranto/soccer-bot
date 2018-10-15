@@ -10,8 +10,8 @@ int rmp=46; //right motorplus
 int rmm=47; //right motorminus
 int rmpwm=4;  //right motorpwm
 
-int bmp=38; //back motorplus
-int bmm=39; //backmotorminus
+int bmp=39; //back motorplus
+int bmm=38; //backmotorminus
 int bmpwm=8;  //rightmiddlemotorpwm
 
 const int ms=255; //max speed
