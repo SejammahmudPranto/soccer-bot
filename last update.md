@@ -322,7 +322,7 @@ void leftgo() {//leftgo
   bmfor();
 }
 
-void rivghtgo() {//right go
+void rightgo() {//right go
   lmstop();
   rmstop();
   fmrev();
