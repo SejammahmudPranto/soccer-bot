@@ -1,18 +1,18 @@
-int lmp=49; //left motorplus
-int lmm=48; //left motorminus
+int lmp=51; //left motorplus
+int lmm=50; //left motorminus
 int lmpwm=3;  //left motorpwm
 
-int fmp=45; //front motorplus
-int fmm=44; //front motorminus
-int fmpwm=8;  //front motorpwm
+int fmp=43; //front motorplus
+int fmm=42; //front motorminus
+int fmpwm=6;  //front motorpwm
 
-int rmp=53; //right motorplus
-int rmm=52; //right motorminus
-int rmpwm=5;  //right motorpwm
+int rmp=46; //right motorplus
+int rmm=47; //right motorminus
+int rmpwm=4;  //right motorpwm
 
-int bmp=41; //back motorplus
-int bmm=40; //backmotorminus
-int bmpwm=7;  //rightmiddlemotorpwm
+int bmp=38; //back motorplus
+int bmm=39; //backmotorminus
+int bmpwm=8;  //rightmiddlemotorpwm
 
 const int ms=255; //max speed
 const int mids=200;//middle speed
@@ -375,12 +375,12 @@ void setup() {
 }
 
 void loop() {
-  /*
-   lmforf();
+  
+   /*lmforf();
    rmforf();
    fmfor();
-   bmfor();
-   */
+   bmfor();*/
+   
 
   while(Serial.available()){
     delay(50);
