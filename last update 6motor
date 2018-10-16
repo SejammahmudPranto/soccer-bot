@@ -14,10 +14,10 @@ int bmp=39; //back motorplus
 int bmm=38; //backmotorminus
 int bmpwm=8;  //rightmiddlemotorpwm
 
-const int ms=255; //max speed
-const int mids=200;//middle speed
-const int ss=150;//slow speed
-const int tmids=230;//turnmid speed
+const int ms=220; //max speed
+const int mids=120;//middle speed
+const int ss=90;//slow speed
+const int tmids=150;//turnmid speed
 
 String readString;
 
@@ -33,7 +33,7 @@ void lmform() {      //leftmotorforwardmid
   analogWrite(lmpwm,mids);
 }
 
-void lmfortmid() {      //leftmotorforwardmid
+void lmfortmid() {      //leftmotorforwardtmid
   digitalWrite(lmp,HIGH);
   digitalWrite(lmm, LOW);
   analogWrite(lmpwm,tmids);
@@ -56,7 +56,7 @@ void lmrevm() {      //leftmotorrevmiddle
   digitalWrite(lmp, LOW);
   analogWrite(lmpwm,mids);
 }
-void lmrevtmid() {      //leftmotorrevmiddle
+void lmrevtmid() {      //leftmotorrevturnmiddle
   digitalWrite(lmm,HIGH);
   digitalWrite(lmp, LOW);
   analogWrite(lmpwm,tmids);
@@ -445,7 +445,7 @@ void loop () {
 
     if(readString == "forward"){
       Serial.println("forward");
-      formid();
+      forslow();
     }
     
     if(readString == "forwardfast"){
@@ -454,7 +454,7 @@ void loop () {
     }
 
     if(readString == "reverse"){
-      revmid();
+      revslow();
       Serial.println("reverse");
     }
 
