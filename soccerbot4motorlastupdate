@@ -10,6 +10,7 @@ const int ms=220; //max speed
 const int mids=120;//middle speed
 const int ss=90;//slow speed
 const int tmids=150;//turnmid speed
+const int spins=130;//spinspeed
 
 String readString;
 
@@ -25,11 +26,22 @@ void lmfortmid() {      //leftmotorforwardmid
   analogWrite(lmpwm,tmids);
 }
 
+void lmfortmids() {      //leftmotorforwardmid
+  digitalWrite(lmp,HIGH);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,mids);
+}
+
 
 void lmfors() {      //leftmotorforwardslow
   digitalWrite(lmp,HIGH);
   digitalWrite(lmm, LOW);
   analogWrite(lmpwm,ss);
+}
+void lmforspins() {      //leftmotorforwardslow
+  digitalWrite(lmp,HIGH);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,spins);
 }
 
 void lmrevf() {      //leftmotorrevfast
@@ -42,6 +54,18 @@ void lmrevtmid() {      //leftmotorrevturnmiddle
   digitalWrite(lmm,HIGH);
   digitalWrite(lmp, LOW);
   analogWrite(lmpwm,tmids);
+}
+
+void lmrevtmids() {      //leftmotorrevturnmiddle
+  digitalWrite(lmm,HIGH);
+  digitalWrite(lmp, LOW);
+  analogWrite(lmpwm,mids);
+}
+
+void lmrevspins() {      //leftmotorrevturnmiddle
+  digitalWrite(lmm,HIGH);
+  digitalWrite(lmp, LOW);
+  analogWrite(lmpwm,spins);
 }
 
 void lmrevs() {      //leftmotorrevslow
@@ -62,6 +86,18 @@ void rmfortmid() {      //rightmotorforwardmid
   analogWrite(rmpwm,tmids);
 }
 
+void rmfortmids() {      //rightmotorforwardmid
+  digitalWrite(rmp,HIGH);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,mids);
+}
+
+void rmforspins() {      //rightmotorforwardmid
+  digitalWrite(rmp,HIGH);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,spins);
+}
+
 void rmfors() {      //rightmotorforwardslow
   digitalWrite(rmp,HIGH);
   digitalWrite(rmm, LOW);
@@ -78,6 +114,18 @@ void rmrevtmid() {      //rightmotorreverseturnmid
   digitalWrite(rmp,LOW);
   digitalWrite(rmm, HIGH);
   analogWrite(rmpwm,tmids);
+}
+
+void rmrevtmids() {      //rightmotorreverseturnmid
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, HIGH);
+  analogWrite(rmpwm,mids);
+}
+
+void rmrevspins() {      //rightmotorreverseturnmid
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, HIGH);
+  analogWrite(rmpwm,spins);
 }
 
 void rmrevs() {      //rightmotorreverseslow
@@ -119,27 +167,27 @@ void revslow() {//reverseslow
 }
 
 void rightspinslow() {//rightspinslow
-  lmfors();
-  rmrevs();
+  lmforspins();
+  rmrevspins();
 }
 
 void rightspinmid() {//rightspinmid
-  lmform();
-  rmrevm();
+  lmfortmid();
+  rmrevtmid();
 }
 
 void leftspinmid() {//leftspinmid
-  rmform();
-  lmrevm();
+  rmfortmid();
+  lmrevtmid();
 }
 
 void leftspinslow() {//leftspinslow
-  rmfors();
-  lmrevs();
+  rmforspins();
+  lmrevspins();
 }
 
 void rightturnmid() {//rightturnmid
-  lmfortmid();
+  lmfortmids();
   rmstop();
 }
 
@@ -174,7 +222,7 @@ void rightbackturnfast() {//rightbackturnfast
 }
 
 void rightbackturnmid() {//rightbackturnmid
-  lmrevtmid();
+  lmrevtmids();
   rmstop();
 }
 
@@ -195,10 +243,8 @@ void setup() {
 
 void loop () {
    /*lmforf();
-   rmforf();
-   fmfor();
-   bmfor();
-   */
+   rmforf();*/
+   
 
  while(Serial.available()){
     delay(50);
@@ -293,19 +339,19 @@ void loop () {
     }
    
     if(readString=="rightgo") {
-      rightgo();
+      //rightgo();
       Serial.println("rightgo");
     }
     if(readString=="leftgo") {
-      leftgo();
+      //leftgo();
       Serial.println("leftgo");
     }
     if(readString=="rightgofast") {
-      rightgofast();
+      //rightgofast();
       Serial.println("rightgofast");
     }
     if(readString=="leftgofast") {
-      leftgofast();
+      //leftgofast();
       Serial.println("leftgofast");
     }
     readString = "";
