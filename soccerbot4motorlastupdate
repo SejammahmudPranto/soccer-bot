@@ -1,0 +1,313 @@
+int lmp=51; //left motorplus
+int lmm=50; //left motorminus
+int lmpwm=3;  //left motorpwm
+
+int rmp=46; //right motorplus
+int rmm=47; //right motorminus
+int rmpwm=4;  //right motorpwm
+
+const int ms=220; //max speed
+const int mids=120;//middle speed
+const int ss=90;//slow speed
+const int tmids=150;//turnmid speed
+
+String readString;
+
+void lmforf() {      //leftmotorforwardfast
+  digitalWrite(lmp,HIGH);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,ms);
+}
+
+void lmfortmid() {      //leftmotorforwardmid
+  digitalWrite(lmp,HIGH);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,tmids);
+}
+
+
+void lmfors() {      //leftmotorforwardslow
+  digitalWrite(lmp,HIGH);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,ss);
+}
+
+void lmrevf() {      //leftmotorrevfast
+  digitalWrite(lmm,HIGH);
+  digitalWrite(lmp, LOW);
+  analogWrite(lmpwm,ms);
+}
+
+void lmrevtmid() {      //leftmotorrevturnmiddle
+  digitalWrite(lmm,HIGH);
+  digitalWrite(lmp, LOW);
+  analogWrite(lmpwm,tmids);
+}
+
+void lmrevs() {      //leftmotorrevslow
+  digitalWrite(lmm,HIGH);
+  digitalWrite(lmp, LOW);
+  analogWrite(lmpwm,ss);
+}
+
+void rmforf() {      //rightmotorforwardfast
+  digitalWrite(rmp,HIGH);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,ms);
+}
+
+void rmfortmid() {      //rightmotorforwardmid
+  digitalWrite(rmp,HIGH);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,tmids);
+}
+
+void rmfors() {      //rightmotorforwardslow
+  digitalWrite(rmp,HIGH);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,ss);
+}
+
+void rmrevf() {      //rightmotorreversefast
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, HIGH);
+  analogWrite(rmpwm,ms);
+}
+
+void rmrevtmid() {      //rightmotorreverseturnmid
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, HIGH);
+  analogWrite(rmpwm,tmids);
+}
+
+void rmrevs() {      //rightmotorreverseslow
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, HIGH);
+  analogWrite(rmpwm,ss);
+}
+
+void rmstop() {//rightmotorstop
+  digitalWrite(rmp,LOW);
+  digitalWrite(rmm, LOW);
+  analogWrite(rmpwm,0);
+}
+
+void lmstop(){//leftmotorstop
+  digitalWrite(lmp,LOW);
+  digitalWrite(lmm, LOW);
+  analogWrite(lmpwm,0);
+}
+
+void forfast() {//forwardfast
+  lmforf();
+  rmforf();
+}
+
+void forslow() {//forwardslow
+  lmfors();
+  rmfors();
+}
+
+void revfast() {//reversefast
+  lmrevf();
+  rmrevf();
+}
+
+void revslow() {//reverseslow
+  lmrevs();
+  rmrevs();
+}
+
+void rightspinslow() {//rightspinslow
+  lmfors();
+  rmrevs();
+}
+
+void rightspinmid() {//rightspinmid
+  lmform();
+  rmrevm();
+}
+
+void leftspinmid() {//leftspinmid
+  rmform();
+  lmrevm();
+}
+
+void leftspinslow() {//leftspinslow
+  rmfors();
+  lmrevs();
+}
+
+void rightturnmid() {//rightturnmid
+  lmfortmid();
+  rmstop();
+}
+
+void rightturnfast() {//rightturnfast
+  lmforf();
+  rmstop();
+}
+
+void leftturnfast() {//leftturnfast
+  rmforf();
+  lmstop();
+}
+
+void leftturnmid() {//leftturnmid
+  rmfortmid();
+  lmstop();
+}
+
+void leftbackturnmid() {//leftbackturnmid
+  rmrevtmid();
+  lmstop();
+}
+
+void leftbackturnfast() {//leftbackturnfast
+  rmrevf();
+  lmstop();
+}
+
+void rightbackturnfast() {//rightbackturnfast
+  lmrevf();
+  rmstop();
+}
+
+void rightbackturnmid() {//rightbackturnmid
+  lmrevtmid();
+  rmstop();
+}
+
+void vehstop() {//vehstop
+  lmstop();
+  rmstop();
+}
+
+void setup() {
+  pinMode(rmp,OUTPUT);
+  pinMode(rmm,OUTPUT);
+  pinMode(rmpwm,OUTPUT);
+  pinMode(lmp,OUTPUT);
+  pinMode(lmm,OUTPUT);
+  pinMode(lmpwm,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop () {
+   /*lmforf();
+   rmforf();
+   fmfor();
+   bmfor();
+   */
+
+ while(Serial.available()){
+    delay(50);
+    char c = Serial.read();
+    readString+=c;
+  }
+
+  if(readString.length() > 0) {
+    Serial.println(readString);
+
+
+    if(readString == "forward"){
+      Serial.println("forward");
+      forslow();
+    }
+    
+    if(readString == "forwardfast"){
+      forfast();
+      Serial.println("forfast");
+    }
+
+    if(readString == "reverse"){
+      revslow();
+      Serial.println("reverse");
+    }
+
+    if(readString == "reversefast"){
+      revfast();
+      Serial.println("revfast");
+    }
+   
+    if(readString=="leftspinfast") {
+      leftspinmid();
+      Serial.println("leftspinfast");
+    }
+    if(readString=="leftspin") {
+      leftspinslow();
+      Serial.println("leftspin");
+    }
+    
+    if(readString=="rightspinfast") {
+      rightspinmid();
+      Serial.println("rightspinfast");
+    }
+    if(readString=="rightspin") {
+      rightspinslow();
+      Serial.println("rightspin");
+    }
+    
+    if(readString=="stop") {
+      vehstop();
+      Serial.println("stop");
+    }
+    if(readString=="stop2") {
+      vehstop();
+      Serial.println("stop2");
+    }
+    if(readString=="frontrightfast") {
+      rightturnfast();
+      Serial.println("rightturnfast");
+    }
+    if(readString=="frontright") {
+      rightturnmid();
+      Serial.println("rightturn");
+    }
+   
+    if(readString=="frontleftfast") {
+      leftturnfast();
+      Serial.println("leftturnfast");
+    }
+    if(readString=="frontleft") {
+      leftturnmid();
+      Serial.println("leftturn");
+    }
+    
+    if(readString=="backrightfast") {
+      rightbackturnfast();
+      Serial.println("rightbackturnfast");
+    }
+    if(readString=="backright") {
+      rightbackturnmid();
+      Serial.println("rightback");
+    }
+    
+    if(readString=="backleftfast") {
+      leftbackturnfast();
+      Serial.println("leftbackturnfast");
+    }
+    if(readString=="backleft") {
+      leftbackturnmid();
+      Serial.println("backleftturn");
+    }
+   
+    if(readString=="rightgo") {
+      rightgo();
+      Serial.println("rightgo");
+    }
+    if(readString=="leftgo") {
+      leftgo();
+      Serial.println("leftgo");
+    }
+    if(readString=="rightgofast") {
+      rightgofast();
+      Serial.println("rightgofast");
+    }
+    if(readString=="leftgofast") {
+      leftgofast();
+      Serial.println("leftgofast");
+    }
+    readString = "";
+ }
+}
